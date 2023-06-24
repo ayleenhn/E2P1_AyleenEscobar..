@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Menu extends javax.swing.JPanel {
     static Scanner sc=new Scanner(System.in);
-    static int numeros;
+    static int cant;
     static ArrayList<Numero> lista=new ArrayList<>();
     static Numero Num=new Numero();
     /**
@@ -138,6 +138,7 @@ public class Menu extends javax.swing.JPanel {
         int num=sc.nextInt();
         switch(num){
             case 1:{
+                ++cant;
                 System.out.println("Ingrese el numero");
                 int numero=sc.nextInt();
                 while(numero<1){
@@ -145,10 +146,33 @@ public class Menu extends javax.swing.JPanel {
                     System.out.println("Ingrese otro numero");
                     numero=sc.nextInt();
                 }
+                System.out.println("Ingrese la Base");
+                int Base=sc.nextInt();
+                while(Base<1){
+                    System.out.println("La base debe ser mayor que 0 y menor o igual que 36 ");
+                    System.out.println("Ingrese otra base");
+                    Base=sc.nextInt();
+                }
+                Num=new Numero(Base,numero);
+                lista.add(Num);
+                System.out.println("El resultado es:"+Num.getnum());
+                System.out.println("Numero agregado exitosamente");
             }
             break;
             case 2:{
-                
+                if(cant>=1){
+                    imprimir();
+                    System.out.println("Elija el numero que desea eliminar: ");
+                    int n=sc.nextInt();
+                    while(n<0||n>lista.size()){
+                        System.out.println("Ingrese un numero valido");
+                        n=sc.nextInt();
+                    }
+                    lista.remove(n-1);
+                    System.out.println("Se ha eliminado el numero de manera exitosa");
+                }else{
+                    System.out.println("Para entrar a esta opcion debe crear un numero");
+                }
             }
             break;
             case 3:{
@@ -167,7 +191,11 @@ public class Menu extends javax.swing.JPanel {
         // TODO add your handling code here:
         //operaciones
     }//GEN-LAST:event_jButton2MouseClicked
-
+    public void imprimir(){
+        for(int i=0;i<lista.size();i++){
+            System.out.println((i+1)+lista.get(i).getnum()+" Base "+lista.get(i).getBase()+":"+lista.get(i).baseToDec(lista.get(i).getnum(),lista.get(i).getBase() ));
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
