@@ -2,46 +2,91 @@
 package e2p1_ayleenescobar;
 
 public class Numero {
-   private int base_num;
-   private String numero;
+   private int base;
+   private String num;
    
    public Numero(){  
    }
    
    public Numero(int base, int num) {
-        this.base_num = base;
-        this.numero=decToBase(num);
-        
-        
+        this.base = base;
+     
+        this.num=decToBase(num,base);   
     }
-    public int getBase_num() {
-        return base_num;
+     
+    public int getBase() {
+        return base;
     }
-    public void setbase_num(int base_num) {
-        this.base_num = base_num;
+    public void setbase(int base) {
+        this.base = base;
     }
-    public String getnumero() {
-        return numero;
+    public String getnum() {
+        return num;
     }
-    public void setnumero(String numero) {
-        this.numero = numero;
+    public void setnum(String num) {
+        this.num = num;
     }
 
-    private int numToChar(int num) {
-        int n=0;
-        for (int i = 0; i < 0; i++) {
-           n= this.base_num/this.numero;
+    private char numToChar(int num) {
+        char caracter;
+        if (num>=0 && num<=9){
+            caracter=(char) (num + 48);
+        }else {
+            caracter=(char) (num +87);
         }
-        return n;
+        return caracter;
     }
     
-    private int charToNum(int num) {
+    private int charToNum(char caracter) {
         
+        int num=(int)caracter;
+        int num2;
+        if (num>=0 && num<=9){
+            num2=(int) (num - 48);
+        }else {
+            num2=(int) (num -87);
+        }
+        return num;
     }
     
-    private int decToBase(int num) {  
+    private String decToBase(int num, int base) {
+        String numero="";
+        String Inversion="";
+        int base2=base;
+        int division=num;
+        while (division >= base2) {
+            int n = division % base2;
+            division/=base2;
+            numero+=numToChar(n);
+        }
+        numero+=numToChar(division);
+        int tamaño=numero.length()-1;
+        while(tamaño>=0){
+            char C=numero.charAt(tamaño);
+            Inversion+=C;
+            --tamaño;
+        }
+       return Inversion; 
     }
     
-    private int baseToDec(int String) {  
+    private int baseToDec(String num, int base) {
+        int k=0;
+        int j=0;
+        int origen=0;
+        int potencia;
+        int cont=0;
+        for (int i = num.length() - 1; i >= 0; i--) {
+            k=(int)num.charAt(i);
+            if(k>=48&&k<=57){
+                j=k-48;
+            }
+            else if(k>=97&&k<=122){
+                j=k-97;
+            }
+            potencia=(int)Math.pow(base,cont);
+            origen=j*potencia;
+            ++cont;
+        }
+        return origen;
     }
 }
